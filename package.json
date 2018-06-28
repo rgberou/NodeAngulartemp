@@ -4,13 +4,14 @@
   "description": "Node Angular template with Express",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node index"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rgberou/NodeAngulartemp.git"
   },
-  "author": "",
+  "author": "Argie Berou",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/rgberou/NodeAngulartemp/issues"
