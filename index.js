@@ -16,11 +16,16 @@ app.get('/',function(req,res){
     res.sendFile('index.html');
 });
 
-app.post('/addUser',function(req,res){
+/*app.post('/addUser',function(req,res){
     console.log('Submitted')
     res.send(req.body)
     console.log(req.body)
-})
+})*/
+
+app.post('/addUser', urlencodedParser, function (req, res) {
+    if (!req.body) return res.sendStatus(400)
+    res.send('welcome, ' + req.body.fname)
+  })
 
 app.listen(8080,function(){
     console.log('Success')
