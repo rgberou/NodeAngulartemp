@@ -1,6 +1,7 @@
 var express=require('express');
 var app=express();
 var path=require('path');
+var sequelize=require('Sequelize');
 var bodyParser = require('body-parser');
 
 'use strict';
@@ -13,51 +14,29 @@ var jsonParser = bodyParser.json()
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-
-
 //Connecting to databse
-//var config = require('dbconfig.json');
-//console.log(config)
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('mydb', 'root', '', {
-  host: 'localhost',
-  dialect: 'mysql',
-  operatorsAliases: false,
-
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  }
-}).authenticate()
-.then(() => {
-  console.log('Connection has been established successfully.');
-})
-.catch(err => {
-  console.error('Unable to connect to the database:', err);
-});
-
-//end connection to atabes
-
-
-
-
+var dbConnection = require('./api/dbConnection')
+var dbConfig = require('./api/dbconfig.json')['dev'];
+console.log(dbConfig.database)
+var Connect=dbConnection(dbConfig.database,dbConfig.user,dbConfig.password,dbConfig.driver,dbConfig.host);
+//end connection to database 
 
 app.use(express.static('public'))
-
 var path=app.use(express.static('public'))
 
-//
-app.get('/',function(req,res){
-    res.sendFile('index.html');
-});
+//Models
+//var Users=require('./api/models/UserModel/UserModel') (sequelize, Connect);
 
-app.post('/addUser',function(req,res){
-    console.log('Submitted')
-    res.send(req.body)
-    //console.log(req.body)
-})
+
+
+
+//Routes
+var index=require('./api/routes/Index/Main');
+var UserRoutes=require('./api/routes/UserRoutes/UserRoutes');
+app.get('/',index);
+app.post('/addUser',UserRoutes.addUser);
+
+
 
 app.listen(8080,function(){
     console.log('Success')
