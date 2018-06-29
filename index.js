@@ -37,6 +37,24 @@ app.get('/',index);
 app.post('/addUser',UserRoutes.addUser);
 
 
+<<<<<<< HEAD
+=======
+/*app.post('/addUser',function(req,res){
+    console.log('Submitted')
+    res.send(req.body)
+<<<<<<< HEAD
+    console.log(req.body)
+})*/
+
+app.post('/addUser', urlencodedParser, function (req, res) {
+    if (!req.body) return res.sendStatus(400)
+    res.send('welcome, ' + req.body.fname)
+  })
+=======
+    //console.log(req.body)
+})
+>>>>>>> cca7691b00c71e4a40a3473cda9ea7f8fa9e90e8
+>>>>>>> f736749bf58cce0e08564d1acd14511cc3a320c6
 
 app.listen(8080,function(){
     console.log('Success')
